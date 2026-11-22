@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 
 import { motion } from 'motion/react'
 import {
@@ -8,6 +9,8 @@ import {
   Sparkles,
   ChevronDown,
   Code2,
+  ArrowLeft,
+  ExternalLink,
 } from 'lucide-react'
 const projects = [
   {
@@ -48,7 +51,90 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 }
 
+function EnterpriseCaseStudy() {
+  return (
+    <main className="relative z-10 mx-auto max-w-6xl px-6 pb-28 pt-14">
+      <a href="#projects" className="mb-12 inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-white">
+        <ArrowLeft size={18} /> Back to projects
+      </a>
+      <p className="mb-4 text-sm font-semibold tracking-widest text-cyan-400">PROJECT 01 · CLOUD INFRASTRUCTURE</p>
+      <h1 className="max-w-4xl text-4xl font-bold tracking-tight sm:text-6xl">AWS Enterprise Platform</h1>
+      <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-400">
+        A hands-on, multi-Availability Zone AWS application platform built with Terraform,
+        Amazon ECS on Fargate, an Application Load Balancer, GitHub Actions OIDC, and CloudWatch.
+      </p>
+      <div className="mt-8 flex flex-wrap gap-3">
+        {['Terraform', 'ECS Fargate', 'ALB', 'GitHub Actions', 'OIDC', 'CloudWatch'].map(tag => (
+          <span key={tag} className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-slate-300">{tag}</span>
+        ))}
+      </div>
+      <a href="https://github.com/athiragopi9626/aws-enterprise-platform" target="_blank" rel="noopener noreferrer"
+        className="mt-8 inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3 font-semibold text-slate-950 hover:bg-cyan-300">
+        View source on GitHub <ExternalLink size={17} />
+      </a>
+
+      <section className="mt-20">
+        <h2 className="mb-6 text-3xl font-bold">Architecture overview</h2>
+        <p className="mb-7 max-w-3xl leading-7 text-slate-400">
+          Incoming HTTP traffic reaches a public Application Load Balancer, which routes requests to
+          Fargate tasks in private subnets across two Availability Zones. The tasks access AWS services
+          through VPC endpoints without requiring a NAT gateway.
+        </p>
+        <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 sm:p-9">
+          <div className="mx-auto max-w-4xl space-y-4 text-center text-sm font-medium">
+            <div className="mx-auto w-fit rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-8 py-4">Internet traffic</div>
+            <div className="text-cyan-400">↓</div>
+            <div className="mx-auto max-w-lg rounded-xl border border-blue-400/40 bg-blue-400/10 px-6 py-5">Public Application Load Balancer · HTTP :80</div>
+            <div className="text-cyan-400">↓</div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-xl border border-white/15 bg-slate-800/60 p-5">Availability Zone A<div className="mt-3 rounded-lg border border-cyan-400/30 p-4 text-cyan-200">Private subnet · ECS Fargate task</div></div>
+              <div className="rounded-xl border border-white/15 bg-slate-800/60 p-5">Availability Zone B<div className="mt-3 rounded-lg border border-cyan-400/30 p-4 text-cyan-200">Private subnet · ECS Fargate task</div></div>
+            </div>
+            <div className="grid gap-3 pt-4 text-slate-300 sm:grid-cols-3">
+              <div className="rounded-lg border border-white/10 p-4">ECR · Container images</div>
+              <div className="rounded-lg border border-white/10 p-4">VPC endpoints · Private access</div>
+              <div className="rounded-lg border border-white/10 p-4">CloudWatch · Logs & alarms</div>
+            </div>
+          </div>
+        </div>
+        <p className="mt-3 text-xs text-slate-500">Simplified logical architecture; not a complete network or security diagram.</p>
+      </section>
+
+      <section className="mt-20 grid gap-6 md:grid-cols-2">
+        {[
+          { title: 'Infrastructure as code', body: 'Terraform provisions networking, the load balancer, ECS resources, VPC endpoints, monitoring, and application autoscaling.' },
+          { title: 'Secure deployment automation', body: 'GitHub Actions assumes an AWS IAM role using OIDC, avoiding long-lived AWS access keys in the CI/CD workflow.' },
+          { title: 'Availability and recovery', body: 'The ECS service maintains two desired tasks across two Availability Zones. A stopped task was replaced automatically during recovery testing.' },
+          { title: 'Observability', body: 'CloudWatch alarms cover ALB and target errors, unhealthy targets, and ECS CPU and memory. An SNS alarm notification was tested.' },
+        ].map(item => (
+          <article key={item.title} className="rounded-2xl border border-white/10 bg-white/[0.035] p-7">
+            <h3 className="mb-3 text-xl font-semibold">{item.title}</h3>
+            <p className="leading-7 text-slate-400">{item.body}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="mt-20 rounded-2xl border border-white/10 bg-white/[0.035] p-7 sm:p-9">
+        <h2 className="mb-5 text-3xl font-bold">Validation and engineering decisions</h2>
+        <ul className="list-disc space-y-4 pl-5 leading-7 text-slate-300">
+          <li>ALB health endpoint returned HTTP 200 after ECS task replacement.</li>
+          <li>A 10,000-request load test recorded 9,989 successful requests and 11 failures; this is a single test, not a production performance guarantee.</li>
+          <li>Target-tracking autoscaling was configured for CPU and memory, but scale-out under sustained load was not demonstrated.</li>
+          <li>The demo uses HTTP rather than HTTPS; ACM/TLS and additional internet-facing protections are future hardening work.</li>
+        </ul>
+      </section>
+      <div className="mt-14"><a href="#projects" className="inline-flex items-center gap-2 text-cyan-300 hover:text-white"><ArrowLeft size={18} /> Back to all projects</a></div>
+    </main>
+  )
+}
+
 export default function App() {
+  const [showEnterprise, setShowEnterprise] = useState(() => window.location.hash === '#project/aws-enterprise-platform')
+  useEffect(() => {
+    const onHashChange = () => setShowEnterprise(window.location.hash === '#project/aws-enterprise-platform')
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#080d19] text-white">
       {/* Background glow */}
@@ -84,6 +170,7 @@ export default function App() {
         </nav>
       </header>
 
+      {showEnterprise ? <EnterpriseCaseStudy /> : <>
       {/* Hero */}
       <section className="relative z-10 mx-auto flex min-h-[85vh] max-w-6xl flex-col justify-center px-6 py-20">
         <motion.div
@@ -223,13 +310,14 @@ export default function App() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ delay: index * 0.12 }}
               whileHover={{ y: -8 }}
-              className="group flex flex-col rounded-2xl border border-white/10 bg-white/[0.035] p-7 transition-colors hover:border-cyan-400/40"
+              className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/[0.035] p-7 transition-colors hover:border-cyan-400/40"
             >
+              {project.number === '01' && <a href="#project/aws-enterprise-platform" aria-label="Read AWS Enterprise Platform case study" className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-cyan-400" />}
               <div className="mb-12 flex items-center justify-between">
                 <span className="text-sm text-slate-500">
                   {project.number}
                 </span>
-                <ArrowUpRight className="text-slate-500 transition group-hover:text-cyan-400" />
+                {project.number === '01' && <ArrowUpRight className="text-slate-500 transition group-hover:text-cyan-400" />}
               </div>
 
               <p className="mb-3 text-xs font-semibold tracking-widest text-cyan-400">
@@ -294,6 +382,7 @@ export default function App() {
         </motion.div>
       </section>
 
+      </>}
       {/* Footer */}
       <footer className="relative z-10 border-t border-white/10 px-6 py-8 text-center text-sm text-slate-500">
         © {new Date().getFullYear()} Athira Gopi.
