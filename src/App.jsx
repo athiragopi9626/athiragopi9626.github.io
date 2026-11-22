@@ -1,3 +1,4 @@
+import AWSArchitecture from './components/AWSArchitecture'
 import { useEffect, useState } from 'react'
 
 import { motion } from 'motion/react'
@@ -11,6 +12,9 @@ import {
   Code2,
   ArrowLeft,
   ExternalLink,
+  Award,
+  BrainCircuit,
+  Layers3,
 } from 'lucide-react'
 const projects = [
   {
@@ -80,24 +84,8 @@ function EnterpriseCaseStudy() {
           Fargate tasks in private subnets across two Availability Zones. The tasks access AWS services
           through VPC endpoints without requiring a NAT gateway.
         </p>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 sm:p-9">
-          <div className="mx-auto max-w-4xl space-y-4 text-center text-sm font-medium">
-            <div className="mx-auto w-fit rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-8 py-4">Internet traffic</div>
-            <div className="text-cyan-400">↓</div>
-            <div className="mx-auto max-w-lg rounded-xl border border-blue-400/40 bg-blue-400/10 px-6 py-5">Public Application Load Balancer · HTTP :80</div>
-            <div className="text-cyan-400">↓</div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl border border-white/15 bg-slate-800/60 p-5">Availability Zone A<div className="mt-3 rounded-lg border border-cyan-400/30 p-4 text-cyan-200">Private subnet · ECS Fargate task</div></div>
-              <div className="rounded-xl border border-white/15 bg-slate-800/60 p-5">Availability Zone B<div className="mt-3 rounded-lg border border-cyan-400/30 p-4 text-cyan-200">Private subnet · ECS Fargate task</div></div>
-            </div>
-            <div className="grid gap-3 pt-4 text-slate-300 sm:grid-cols-3">
-              <div className="rounded-lg border border-white/10 p-4">ECR · Container images</div>
-              <div className="rounded-lg border border-white/10 p-4">VPC endpoints · Private access</div>
-              <div className="rounded-lg border border-white/10 p-4">CloudWatch · Logs & alarms</div>
-            </div>
-          </div>
-        </div>
-        <p className="mt-3 text-xs text-slate-500">Simplified logical architecture; not a complete network or security diagram.</p>
+       <AWSArchitecture />
+      
       </section>
 
       <section className="mt-20 grid gap-6 md:grid-cols-2">
@@ -157,9 +145,12 @@ export default function App() {
           AG<span className="text-cyan-400">.</span>
         </a>
 
-        <nav className="flex items-center gap-6 text-sm text-slate-400">
+        <nav className="flex flex-wrap items-center justify-end gap-4 text-sm text-slate-400 sm:gap-6">
           <a href="#about" className="transition hover:text-white">
             About
+          </a>
+          <a href="#experience" className="transition hover:text-white">
+            Experience
           </a>
           <a href="#projects" className="transition hover:text-white">
             Projects
@@ -181,7 +172,7 @@ export default function App() {
         >
           <motion.div variants={fadeUp} className="mb-8">
             <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-xs font-medium tracking-widest text-cyan-300">
-              CLOUD ENGINEERING · DEVOPS · GENERATIVE AI
+              AWS PLATFORM ENGINEERING · GENERATIVE AI
             </span>
           </motion.div>
 
@@ -196,10 +187,10 @@ export default function App() {
             variants={fadeUp}
             className="text-5xl font-bold leading-[1.1] tracking-tight sm:text-7xl"
           >
-            Engineering cloud
+            Building secure cloud
             <br />
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent">
-              platforms that scale.
+              platforms & intelligent solutions.
             </span>
           </motion.h1>
 
@@ -207,9 +198,9 @@ export default function App() {
             variants={fadeUp}
             className="mt-8 max-w-2xl text-lg leading-8 text-slate-400"
           >
-            AWS Cloud & Platform Engineer specializing in secure
-            infrastructure, Terraform automation, CI/CD pipelines,
-            and enterprise GenAI solutions.
+            AWS Platform & Generative AI Engineer working across enterprise AWS
+            infrastructure, Terraform, secure CI/CD, Amazon Bedrock,
+            retrieval-augmented generation, and AI workflow orchestration.
           </motion.p>
 
           <motion.div
@@ -225,13 +216,13 @@ export default function App() {
             </a>
 
             <a
-              href="https://github.com/athiragopi9626"
+              href="https://www.linkedin.com/in/athira-gopi-b44a111ba/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-6 py-3 font-medium transition hover:bg-white/10"
             >
-              <Code2 size={18} />
-              GitHub
+              <ExternalLink size={18} />
+              LinkedIn
             </a>
           </motion.div>
         </motion.div>
@@ -285,6 +276,62 @@ export default function App() {
               <h3 className="font-semibold">{name}</h3>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* Experience and credentials */}
+      <section id="experience" className="relative z-10 mx-auto max-w-6xl px-6 py-24">
+        <p className="mb-4 text-sm font-semibold tracking-widest text-cyan-400">EXPERIENCE & CREDENTIALS</p>
+        <h2 className="mb-5 text-3xl font-bold sm:text-4xl">Enterprise experience. Engineering depth.</h2>
+        <p className="mb-9 max-w-3xl leading-7 text-slate-400">
+          My work spans large-scale AWS platform operations, infrastructure automation,
+          cloud security, and the engineering foundations behind enterprise GenAI applications.
+        </p>
+        <div className="grid gap-5 lg:grid-cols-2">
+          <div className="rounded-2xl border border-cyan-400/20 bg-cyan-400/[0.045] p-7">
+            <div className="mb-5 flex items-center gap-3"><Layers3 className="text-cyan-400" size={25}/><h3 className="text-xl font-semibold">AWS Platform Engineering</h3></div>
+            <p className="mb-5 leading-7 text-slate-400">Experience supporting AWS environments at 500+ account scale, with a focus on security, repeatable delivery, and operational reliability.</p>
+            <div className="flex flex-wrap gap-2">{['AWS Organizations', 'Terraform', 'IAM & OIDC', 'CI/CD', 'Observability', 'Security'].map(tag => <span key={tag} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300">{tag}</span>)}</div>
+          </div>
+          <div className="rounded-2xl border border-violet-400/20 bg-violet-400/[0.045] p-7">
+            <div className="mb-5 flex items-center gap-3"><BrainCircuit className="text-violet-300" size={25}/><h3 className="text-xl font-semibold">Generative AI Engineering</h3></div>
+            <p className="mb-5 leading-7 text-slate-400">Building and supporting AWS-based AI workflows, including retrieval, document processing, orchestration, and observability.</p>
+            <div className="flex flex-wrap gap-2">{['Amazon Bedrock', 'RAG', 'AgentCore', 'Knowledge Bases', 'Lambda', 'Step Functions'].map(tag => <span key={tag} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300">{tag}</span>)}</div>
+          </div>
+        </div>
+        <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.035] p-7 sm:p-8">
+          <div className="mb-5 flex items-center gap-3">
+            <Award className="text-cyan-400" size={25} />
+            <h3 className="text-xl font-semibold">Certifications &amp; Credentials</h3>
+          </div>
+          <p className="mb-6 max-w-2xl text-sm leading-7 text-slate-400">
+            Professional credentials earned in cloud engineering and infrastructure.
+            View the individual Credly records for credential details and dates.
+          </p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              { label: 'AWS Certified DevOps Engineer – Professional', url: 'https://www.credly.com/badges/f787461f-d9e1-498e-956c-fb6d31dc2733/linked_in_profile' },
+              { label: 'AWS Certified Security – Specialty', url: 'https://www.credly.com/badges/355f25e4-1c42-41a4-b715-0ba85a338f3c/linked_in_profile' },
+              { label: 'AWS Certified Solutions Architect – Associate', url: 'https://www.credly.com/badges/1512d3b4-9c29-4786-8e7d-8695a6163fd5?source=linked_in_profile' },
+              { label: 'HashiCorp Certified: Terraform Associate (002)', url: 'https://www.credly.com/badges/b367b323-9809-43d2-9ffd-b8ea5fa23de3/linked_in_profile' },
+            ].map(({ label, url }) => (
+              <a
+                key={url}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${label} on Credly`}
+                className="group flex items-center gap-3 rounded-xl border border-white/10 bg-[#101a2b] px-4 py-4 transition hover:border-cyan-400/50 hover:bg-cyan-400/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+              >
+                <Award className="shrink-0 text-cyan-400" size={22} />
+                <span className="flex-1">
+                  <span className="block text-sm font-semibold text-slate-100">{label}</span>
+                  <span className="mt-1 block text-xs text-slate-400">View credential on Credly</span>
+                </span>
+                <ExternalLink className="shrink-0 text-slate-500 transition group-hover:text-cyan-300" size={17} />
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -360,25 +407,31 @@ export default function App() {
           <p className="mb-4 text-sm font-semibold tracking-widest text-cyan-400">
             LET'S CONNECT
           </p>
-
           <h2 className="mb-6 text-4xl font-bold sm:text-5xl">
-            Let's build something meaningful.
+            Let's connect.
           </h2>
-
-          <p className="mx-auto mb-10 max-w-xl text-slate-400">
-            Interested in cloud architecture, platform engineering,
-            or GenAI infrastructure? Connect with me on GitHub.
+          <p className="mx-auto mb-10 max-w-xl leading-7 text-slate-400">
+            Open to opportunities in AWS Platform Engineering, Generative AI,
+            Cloud Infrastructure, and Cloud Consulting. Let’s connect on LinkedIn.
           </p>
-
-          <a
-            href="https://github.com/athiragopi9626"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-7 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
-          >
-            <Code2 size={18} />
-            View GitHub Profile
-          </a>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href="https://www.linkedin.com/in/athira-gopi-b44a111ba/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
+            >
+              Connect on LinkedIn <ExternalLink size={17} />
+            </a>
+            <a
+              href="https://github.com/athiragopi9626"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-6 py-3 font-medium text-white transition hover:border-cyan-400/40 hover:bg-white/10"
+            >
+              <Code2 size={17} /> GitHub
+            </a>
+          </div>
         </motion.div>
       </section>
 
